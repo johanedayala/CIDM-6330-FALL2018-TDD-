@@ -1,8 +1,10 @@
 from django.db import models
-
 # Create your models here.
-class Post(models.Model):
-    email = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+class Institutions(models.Model):
+    pass
+    
+class Inst(models.Model):
+    email = models.ForeignKey(Institutions, on_delete=models.CASCADE)
     password = models.TextField()
     confirm_password = models.TextField()
     name = models.TextField() 
@@ -16,4 +18,4 @@ class Post(models.Model):
         self.save()
 
     def __str__(self):
-        return self.title
+        return self.email
