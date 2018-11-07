@@ -2,13 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from lists.models import Item, List
 from django.shortcuts import redirect, render
-
 from django.utils import timezone
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
-
 from institutions.models import Institutions, Inst
-
 from institutions.forms import InstForm
 # Create your views here.
 
@@ -21,15 +18,16 @@ def view_list(request, list_id):
 
 def new_list(request):
     list_ = List.objects.create()
-    Item.objects.create(text=request.POST['item_text'], list=list_)
+    #Item.objects.create(text=request.POST['item_text'], list=list_)
+    Item.objects.create(text=request.POST['item_text'],password=request.POST['item_password'],list=list_)
     return redirect(f'/lists/{list_.id}/')
 
 def add_item(request, list_id):
     list_ = List.objects.get(id=list_id)
-    Item.objects.create(text=request.POST['item_text'], list=list_)
+    Item.objects.create(text=request.POST['item_text'], password=request.POST['item_password'],list=list_)
     return redirect(f'/lists/{list_.id}/')
 
-    #-------------------------VIEWS INSTITUTION-----------------------
+#-------------------------VIEWS INSTITUTION-----------------------
 
 def post_list(request):
     posts = Inst.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
