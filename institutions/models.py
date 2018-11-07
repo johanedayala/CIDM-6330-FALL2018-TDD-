@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 # Create your models here.
 class Institutions(models.Model):
     pass
@@ -13,6 +14,8 @@ class Inst(models.Model):
     state = models.TextField()
     zipcode = models.TextField()
     mission = models.TextField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
 
     def publish(self):
         self.save()

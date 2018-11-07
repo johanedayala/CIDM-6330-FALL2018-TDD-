@@ -18,7 +18,10 @@ from institutions import views
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^admin/', admin.site.urls),
     url('', views.post_list, name='post_list'),
+    url('post/<int:pk>/', views.post_detail, name='post_detail'),
+    url('post/new', views.post_new, name='post_new'),
     url(r'^new$', views.new_list, name='new_list'),
     url(r'^(\d+)/$', views.view_list, name='view_list'),
     url(r'^(\d+)/add_item$', views.add_item, name='add_item'),
