@@ -31,14 +31,14 @@ def add_item(request, list_id):
 
     #-------------------------VIEWS INSTITUTION-----------------------
 
-    def post_list(request):
-        posts = Inst.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
-        return render(request, 'institutions/base.html', {'posts': posts})
+def post_list(request):
+    posts = Inst.objects.filter(created_date__lte=timezone.now()).order_by('created_date')
+    return render(request, 'institutions/base.html', {'posts': posts})
 
-    def post_detail(request, pk):
-        post = get_object_or_404(Inst, pk=pk)
-        return render(request, 'institutions/institution_detail.html', {'post': post})
+def post_detail(request, pk):
+    post = get_object_or_404(Inst, pk=pk)
+    return render(request, 'institutions/institution_detail.html', {'post': post})
 
-    def post_new(request):
-        form = InstForm()
-        return render(request, 'institutions/institution_edit.html', {'form': form})
+def post_new(request):
+    form = InstForm()
+    return render(request, 'institutions/institution_edit.html', {'form': form})
