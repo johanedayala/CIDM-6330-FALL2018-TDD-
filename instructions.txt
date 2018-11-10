@@ -1,6 +1,8 @@
 TDD++:
 * Incorporate our ABET Pars project to TDD++. (MAYBE, that is still too broad, what specifically will you narrow down to? What feature(s)?)
-* Demonstrate ability to create full coverage unit tests and functional tests.  TDD++ functionality is for an institution to input program educational and student objectives. (OKAY, but be certain of this scope by the 4th - Dropbox going up today/tomorrow)
+* Demonstrate ability to create full coverage unit tests and functional tests.  
+    TDD++ functionality is for an institution to input program educational and student objectives.
+     (OKAY, but be certain of this scope by the 4th - Dropbox going up today/tomorrow)
 * Will receive a grading rubric by Nov 4th, which would give better guidance  into what is expected. (yes, but this is very reflective of what Percival finished with at Chapter 7)
 * Send URL to the repo we end up using to manage the code for our TDD++ once figured out to Dr. Babb. (YES, please)   
 

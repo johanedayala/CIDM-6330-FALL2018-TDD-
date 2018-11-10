@@ -10,17 +10,12 @@ from django.shortcuts import render, get_object_or_404
 def home_page(request):
     return render(request, 'home.html')
 
-#def view_list(request, list_id):
-    #list_ = Institutions.objects.get(id=list_id)
-    #return render(request, 'list.html', {'list': list_})
-
 def view_inst(request, list_id):
     list_ = Institutions.objects.get(id=list_id)
     return render(request, 'list.html', {'list': list_})
 
 def new_Inst(request):
     list_ = Institutions.objects.create()
-    #Item.objects.create(text=request.POST['item_text'], list=list_)
     Item.objects.create(email=request.POST['email'],
                         password=request.POST['password'],
                         confirm_password=request.POST['confirm_password'],
@@ -30,8 +25,9 @@ def new_Inst(request):
                         state=request.POST['state'],
                         zipcode=request.POST['zipcode'],
                         mission=request.POST['mission'],
-                        list=list_)
-    return redirect(f'/lists/{list_.id}/')
+                        list=Institutions.objects.get(id=1))
+    #return redirect(f'/lists/{list_.id}/')
+    return redirect(f'/lists/1/')
 
 def add_inst(request, list_id):
     list_ = Institutions.objects.get(id=list_id)
@@ -45,4 +41,7 @@ def add_inst(request, list_id):
                         zipcode=request.POST['zipcode'],
                         mission=request.POST['mission'],
                         list=list_)
-    return redirect(f'/lists/{list_.id}/')
+    return redirect(f'/lists/1/')
+    #return redirect(f'/lists/{list_.id}/')
+def add_peos(request):
+    return render(request, 'add_peos.html')

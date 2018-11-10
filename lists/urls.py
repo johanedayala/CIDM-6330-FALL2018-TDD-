@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^new$', views.new_Inst, name='new_Inst'),
     url(r'^(\d+)/$', views.view_inst, name='view_inst'),
     url(r'^(\d+)/add_item$', views.add_inst, name='add_inst'),
+    url(r'^post/new/$', views.add_peos, name='add_peos'),
 ]

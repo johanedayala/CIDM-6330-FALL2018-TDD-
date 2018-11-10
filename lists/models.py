@@ -24,7 +24,7 @@ class programEducationalObjectives(models.Model):
     objective = models.TextField()
 
 #Student outcomes
-class sttudentOutcome(models.Model):
+class studentOutcome(models.Model):
     #institution = models.ForeignKey(Inst, default=None)
     institution = models.TextField()
     sttudentOutcome = models.TextField()

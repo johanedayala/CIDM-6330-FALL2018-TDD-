@@ -6,18 +6,20 @@
 
 {% block table %}
   <table id="id_list_table" class="table">
-
+      <tr><td>counter</td><td>email</td><td>password</td><td>confirm_password</td><td>name</td><td>street</td><td>city</td><td>state</td><td>zipcode</td><td>mission</td><td>Add Program Educational Objective</td></tr>
     {% for list in list.item_set.all %}
       <tr>
-        <td>{{ forloop.counter }}: {{ list.email }}</td>
-        <td>{{ forloop.counter }}: {{ list.password }}</td>
-        <td>{{ forloop.counter }}: {{ list.confirm_password }}</td>
-        <td>{{ forloop.counter }}: {{ list.name }}</td>
-        <td>{{ forloop.counter }}: {{ list.street }}</td>
-        <td>{{ forloop.counter }}: {{ list.city }}</td>
-        <td>{{ forloop.counter }}: {{ list.state }}</td>
-        <td>{{ forloop.counter }}: {{ list.zipcode }}</td>
-        <td>{{ forloop.counter }}: {{ list.mission }}</td>
+        <td>{{ forloop.counter }}: </td>
+        <td>{{ list.email }}   </td>
+        <td>{{ list.password }}</td>
+        <td>{{ list.confirm_password }}</td>
+        <td>{{ list.name }}</td>
+        <td>{{ list.street }}</td>
+        <td>{{ list.city }}</td>
+        <td>{{ list.state }}</td>
+        <td>{{ list.zipcode }}</td>
+        <td>{{ list.mission }}</td>
+        <td><a href="{% url 'add_peos' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></td>
       </tr>
     {% endfor %}
   </table>
