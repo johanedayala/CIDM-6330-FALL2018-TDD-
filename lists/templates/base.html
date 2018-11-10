@@ -5,41 +5,62 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
+    <title>New INSTITUTION</title>
     <!--link href="css/bootstrap.min.css" rel="stylesheet"-->
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/base.css" rel="stylesheet">
-  </head>
+    </head>
   </head>
 
   <body>
     <div class="container">
 
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3 jumbotron">
-          <div class="text-center">
-            <h1>{% block header_text %}{% endblock %}</h1>
-            <form method="POST" action="{% block form_action %}{% endblock %}">
-              {% csrf_token %}
-              <input name="item_text" id="id_new_item"
-                  class="form-control input-lg"
-                  placeholder="Enter user" />
-              <input name="item_password" id="id_new_password"
-                  class="form-control input-lg"
-                  placeholder="Enter password" />
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 jumbotron">
+        <div class="text-center">
+        <h1>{% block header_text %}{% endblock %}</h1>
+          <form method="POST" action="{% block form_action %}{% endblock %}">
+          {% csrf_token %}
+              <input name="email" id="id_email"
+                class="form-control input-lg"
+                placeholder="Enter email" />
+              <input name="password" id="id_password"
+                class="form-control input-lg"
+                placeholder="Enter password" />
+              <input name="confirm_password" id="id_confirm_password"
+                class="form-control input-lg"
+                placeholder="confirm_password" />
+              <input name="name" id="id_name"
+                class="form-control input-lg"
+                placeholder="Enter name" />
+              <input name="street" id="id_street"
+                class="form-control input-lg"
+                placeholder="Enter street" />
+              <input name="city" id="id_city"
+                class="form-control input-lg"
+                placeholder="Enter city" />
+              <input name="state" id="id_state"
+                class="form-control input-lg"
+                placeholder="Enter state" />
+              <input name="zipcode" id="id_zipcode"
+                class="form-control input-lg"
+                placeholder="Enter zipcode" />
+              <input name="mission" id="id_mission"
+                class="form-control input-lg"
+                placeholder="Enter mission" />
               <input type="submit" value="submit"/>
-            </form>
-          </div>
+          </form>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          {% block table %}
-          {% endblock %}
-        </div>
-      </div>
-
     </div>
+
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+    {% block table %}
+    {% endblock %}
+    </div>
+    </div>
+
+  </div>
   </body>
 </html>

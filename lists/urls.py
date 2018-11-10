@@ -18,7 +18,8 @@ from django.contrib import admin
 from lists import views
 
 urlpatterns = [
-    url(r'^new$', views.new_list, name='new_list'),
-    url(r'^(\d+)/$', views.view_list, name='view_list'),
-    url(r'^(\d+)/add_item$', views.add_item, name='add_item'),
+    #url(r'^new$', views.new_list, name='new_list'),
+    url(r'^new$', views.new_Inst, name='new_Inst'),
+    url(r'^(\d+)/$', views.view_inst, name='view_inst'),
+    url(r'^(\d+)/add_item$', views.add_inst, name='add_inst'),
 ]

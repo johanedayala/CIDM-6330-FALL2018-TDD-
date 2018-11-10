@@ -6,10 +6,18 @@
 
 {% block table %}
   <table id="id_list_table" class="table">
-    {% for item in list.item_set.all %}
+
+    {% for list in list.item_set.all %}
       <tr>
-        <td>{{ forloop.counter }}: {{ item.text }}</td>
-        <td>{{ forloop.counter }}: {{ item.password }}</td>
+        <td>{{ forloop.counter }}: {{ list.email }}</td>
+        <td>{{ forloop.counter }}: {{ list.password }}</td>
+        <td>{{ forloop.counter }}: {{ list.confirm_password }}</td>
+        <td>{{ forloop.counter }}: {{ list.name }}</td>
+        <td>{{ forloop.counter }}: {{ list.street }}</td>
+        <td>{{ forloop.counter }}: {{ list.city }}</td>
+        <td>{{ forloop.counter }}: {{ list.state }}</td>
+        <td>{{ forloop.counter }}: {{ list.zipcode }}</td>
+        <td>{{ forloop.counter }}: {{ list.mission }}</td>
       </tr>
     {% endfor %}
   </table>
