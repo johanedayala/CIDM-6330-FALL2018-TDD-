@@ -6,7 +6,7 @@
 
 {% block table %}
   <table id="id_list_table" class="table">
-      <tr><td>counter</td><td>email</td><td>password</td><td>confirm_password</td><td>name</td><td>street</td><td>city</td><td>state</td><td>zipcode</td><td>mission</td><td>Add Program Educational Objective</td></tr>
+      <tr><td>counter</td><td>email</td><td>password</td><td>confirm_password</td><td>name</td><td>street</td><td>city</td><td>state</td><td>zipcode</td><td>mission</td><td>Add Program Educational Objectives</td><td>Add Student Outcomes</td></tr>
     {% for list in list.item_set.all %}
       <tr>
         <td>{{ forloop.counter }}: </td>
@@ -20,6 +20,7 @@
         <td>{{ list.zipcode }}</td>
         <td>{{ list.mission }}</td>
         <td><a href="{% url 'add_peos' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></td>
+        <td><a href="{% url 'add_so' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></td>
       </tr>
     {% endfor %}
   </table>

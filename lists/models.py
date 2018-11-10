@@ -17,6 +17,7 @@ class Item(models.Model):
     zipcode = models.TextField()
     mission = models.TextField()
     list = models.ForeignKey(Institutions, default=None)
+    
 #programEducationalObjectives
 class programEducationalObjectives(models.Model):
     #institution = models.ForeignKey(Inst, default=None)

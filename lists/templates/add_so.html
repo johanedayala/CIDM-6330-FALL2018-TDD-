@@ -31,12 +31,12 @@
     </div>
     {% block table %}
     <table id="id_peos_table" class="table">
-        <tr><td>counter</td><td>objective</td><td>add Student outcomes</td></tr>
+        <tr><td>counter</td><td>studentOutcome</td><td>add Student outcomes</td></tr>
         {{ list}}
       {% for list in list.item_set.all %}
         <tr>
           <td>{{ forloop.counter }}: </td>
-          <td>{{ list.objective }}   </td>
+          <td>{{ list.sttudentOutcome }}   </td>
           <td><a href="{% url 'add_so' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></td>
         </tr>
       {% endfor %}
