@@ -20,12 +20,12 @@ class Item(models.Model):
     
 #programEducationalObjectives
 class programEducationalObjectives(models.Model):
-    #institution = models.ForeignKey(Inst, default=None)
-    institution = models.TextField()
+    institution = models.ForeignKey(Item, default=None)
+    #institution = models.TextField()
     objective = models.TextField()
 
 #Student outcomes
 class studentOutcome(models.Model):
-    #institution = models.ForeignKey(Inst, default=None)
-    institution = models.TextField()
-    sttudentOutcome = models.TextField()
+    institution = models.ForeignKey(Item, default=None)
+    #institution = models.TextField()
+    studentOutcome = models.TextField()

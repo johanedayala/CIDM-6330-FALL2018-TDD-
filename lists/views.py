@@ -10,11 +10,6 @@ from django.shortcuts import render, get_object_or_404
 def home_page(request):
     return render(request, 'home.html')
 #-----------------INSTITUTIONS -------------------------------------
-def view_inst(request, list_id):
-    list_ = Institutions.objects.get(id=list_id)
-    return render(request, 'list.html', {'list': list_})
-
-
 def new_Inst(request):
     list_ = Institutions.objects.create()
     Item.objects.create(email=request.POST['email'],
@@ -45,31 +40,40 @@ def add_inst(request, list_id):
     return redirect(f'/lists/1/')
     #return redirect(f'/lists/{list_.id}/')
 
-# ------------------------- Personal Educational Objectives-----------------------
-def add_peos(request):
-    return render(request, 'add_peos.html')
+def view_inst(request, list_id):
+    list_ = Institutions.objects.get(id=list_id)
+    return render(request, 'list.html', {'list': list_})
 
-def new_peos(request):
-    list_ = Institutions.objects.get(id=1)
-    programEducationalObjectives.objects.create(institution=list_,
+# ------------------------- Personal Educational Objectives-----------------------
+def add_peos(request, id):
+    item_ = get_object_or_404(Item, id=id)
+    #item_ = Item.objects.get(id=id)
+    return render(request, 'add_peos.html', {'post': item_})
+    #return render(request, 'add_peos.html')
+
+def new_peos(request, id):
+    item = Item.objects.get(id=id)
+    programEducationalObjectives.objects.create(institution=item,
                                                 objective=request.POST['objective'])
     return render(request, 'add_peos.html')                                            
     #return redirect(f'/lists/post/new')
 
-def view_peos(request):
-    list_ = programEducationalObjectives.objects.get(institution=1)
+def view_peos(request, id):
+    item = Item.objects.get(id=id)
+    list_ = programEducationalObjectives.objects.get(institution=item)
     return render(request, 'list_peos.html', {'list': list_})
 
 # --------------------------Student outcomes -----------------------------------------
 def add_so(request):
     return render(request, 'add_so.html')
 
-def new_so(request):
-    studentOutcome.objects.create(institution=1,
+def new_so(request,id):
+    item = Item.objects.get(id=id)
+    studentOutcome.objects.create(institution=item,
                                    studentOutcome=request.POST['studentOutcome'])
     return render(request, 'add_so.html')                                            
-    #return redirect(f'/lists/post/new')
 
-def view_so(request):
-    list_ = programEducationalObjectives.objects.get(institution=1)
+def view_so(request,id):
+    item = Item.objects.get(id=id)
+    list_ = studentOutcome.objects.get(institution=item)
     return render(request, 'list_so.html', {'list': list_})

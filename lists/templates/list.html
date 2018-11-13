@@ -20,8 +20,8 @@
         <td>{{ list.state }}</td>
         <td>{{ list.zipcode }}</td>
         <td>{{ list.mission }}</td>
-        <td><a href="{% url 'add_peos' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></td>
-        <td><a href="{% url 'add_so' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></td>
+        <td><a href="{% url 'add_peos' id=list.id %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></td>
+        <td><a href="{% url 'add_so'   id=list.id %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></td>
       </tr>
     {% endfor %}
   </table>
