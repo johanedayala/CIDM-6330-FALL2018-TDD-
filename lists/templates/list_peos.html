@@ -1,0 +1,20 @@
+{% extends 'add_peos.html' %}
+
+{% block header_text %}Program Educational Objective{% endblock %}
+
+{% block form_action %}newPeos{% endblock %}
+
+{% block table %}
+{{list}}
+{{list.item_set.count}}
+    <table id="id_peos_table" class="table table-bordered table-dark">
+        <tr><td>counter</td><td>studentOutcome</td></tr>
+      {% for list in list.item_set.all %}
+        <tr>
+          <td>{{ forloop.counter }}: </td>
+          <td>{{ list.objective }}   </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endblock %}
+
