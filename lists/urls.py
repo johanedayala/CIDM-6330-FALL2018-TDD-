@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from lists import views
+from . import views
 
 urlpatterns = [
     #url(r'^new$', views.new_list, name='new_list'),
@@ -23,9 +24,9 @@ urlpatterns = [
     url(r'^(\d+)/$', views.view_inst, name='view_inst'),
     url(r'^(\d+)/add_item$', views.add_inst, name='add_inst'),
     #add Personal Education Objectives
-    url(r'^item/<int:id>/$', views.add_peos, name='add_peos'),
-    url(r'^item/<int:id>/newPeos$', views.view_peos, name='new_peos'),
+    url(r'^1/item/1/', views.add_peos, name='add_peos'),
+    url(r'^1/item/1/newPeos$', views.view_peos, name='new_peos'),
     #Add Student Outcomes.
-    url(r'^item/newSo/<int:id>/$', views.add_so, name='add_so'),
-    url(r'^item/newSo/<int:id>/newso$', views.view_so, name='new_so'),
+    url(r'^1/item/newSo/1/', views.add_so, name='add_so'),
+    url(r'^1/item/newSo/1/newso$', views.view_so, name='new_so'),
 ]

@@ -45,35 +45,37 @@ def view_inst(request, list_id):
     return render(request, 'list.html', {'list': list_})
 
 # ------------------------- Personal Educational Objectives-----------------------
-def add_peos(request, id):
-    item_ = get_object_or_404(Item, id=id)
-    #item_ = Item.objects.get(id=id)
-    return render(request, 'add_peos.html', {'post': item_})
-    #return render(request, 'add_peos.html')
+def add_peos(request):
+    #item_ = get_object_or_404(Item, id=id)
+    #item_id= 
+    item_ = Item.objects.get(id=1)
+    #return render(request, 'add_peos.html', {'post': item_})
+    return render(request, 'list_peos.html')
+    #return redirect(f'/lists/1/item/1')
 
-def new_peos(request, id):
-    item = Item.objects.get(id=id)
+def new_peos(request):
+    item = Item.objects.get(id=1)
     programEducationalObjectives.objects.create(institution=item,
                                                 objective=request.POST['objective'])
-    return render(request, 'add_peos.html')                                            
+    return render(request, 'list_peos.html')                                            
     #return redirect(f'/lists/post/new')
 
-def view_peos(request, id):
-    item = Item.objects.get(id=id)
+def view_peos(request):
+    item = Item.objects.get(id=1)
     list_ = programEducationalObjectives.objects.get(institution=item)
     return render(request, 'list_peos.html', {'list': list_})
 
 # --------------------------Student outcomes -----------------------------------------
 def add_so(request):
-    return render(request, 'add_so.html')
+    return render(request, 'list_peos.html')
 
-def new_so(request,id):
-    item = Item.objects.get(id=id)
+def new_so(request):
+    item = Item.objects.get(id=1)
     studentOutcome.objects.create(institution=item,
                                    studentOutcome=request.POST['studentOutcome'])
-    return render(request, 'add_so.html')                                            
+    return render(request, 'list_so.html')                                            
 
-def view_so(request,id):
-    item = Item.objects.get(id=id)
+def view_so(request):
+    item = Item.objects.get(id=1)
     list_ = studentOutcome.objects.get(institution=item)
     return render(request, 'list_so.html', {'list': list_})
