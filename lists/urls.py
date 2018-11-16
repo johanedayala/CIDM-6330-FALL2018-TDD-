@@ -23,10 +23,12 @@ urlpatterns = [
     url(r'^new$', views.new_Inst, name='new_Inst'),
     url(r'^(\d+)/$', views.view_inst, name='view_inst'),
     url(r'^(\d+)/add_item$', views.add_inst, name='add_inst'),
+
     #add Personal Education Objectives
-    url(r'^1/item/1/', views.add_peos, name='add_peos'),
-    url(r'^1/item/1/newPeos$', views.view_peos, name='new_peos'),
+    url(r'^1/inst/(?P<lists_id>[0-9]+)', views.add_peos, name='add_peos'),
+    url(r'^1/inst/1/newPeos$', views.view_peos, name='new_peos'),
     #Add Student Outcomes.
-    url(r'^1/item/newSo/1/', views.add_so, name='add_so'),
-    url(r'^1/item/newSo/1/newso$', views.view_so, name='new_so'),
+    
+    url(r'^1/inst/newSo/(?P<lists_id>[0-9]+)', views.add_so, name='add_so'),
+    url(r'^1/inst/newSo/1/newso$', views.view_so, name='new_so'),
 ]

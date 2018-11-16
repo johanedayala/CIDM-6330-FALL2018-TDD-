@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from lists.models import Item,Institutions,programEducationalObjectives,studentOutcome
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
 # Create your views here.
 
@@ -45,15 +46,22 @@ def view_inst(request, list_id):
     return render(request, 'list.html', {'list': list_})
 
 # ------------------------- Personal Educational Objectives-----------------------
-def add_peos(request):
+def add_peos(request,lists_id):
     #item_ = get_object_or_404(Item, id=id)
     #item_id= 
-    item_ = Item.objects.get(id=1)
+    item_ = Item.objects.get(id=lists_id)
+    programEducationalObjectives.objects.create(institution=item_, objective='test')
+    list_ = programEducationalObjectives.objects.filter(institution=item_)
     #return render(request, 'add_peos.html', {'post': item_})
-    return render(request, 'list_peos.html')
-    #return redirect(f'/lists/1/item/1')
+    return render(request, 'list_peos.html', {'list': list_})
+    #return redirect(f'/lists/1/ins/{item_.id}')
+    #return HttpResponseRedirect(reverse('redirect_peos',args=(item_.id,)))
 
-def new_peos(request):
+def redirect_peos(request,id):
+    return redirect(f'/lists/1/inst/{id}')
+
+
+def new_peos(request,id):
     item = Item.objects.get(id=1)
     programEducationalObjectives.objects.create(institution=item,
                                                 objective=request.POST['objective'])
@@ -66,8 +74,9 @@ def view_peos(request):
     return render(request, 'list_peos.html', {'list': list_})
 
 # --------------------------Student outcomes -----------------------------------------
-def add_so(request):
-    return render(request, 'list_peos.html')
+def add_so(request,lists_id):
+    item_ = Item.objects.get(id=lists_id)
+    return render(request, 'list_so.html')
 
 def new_so(request):
     item = Item.objects.get(id=1)

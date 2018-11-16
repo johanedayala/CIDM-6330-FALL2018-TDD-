@@ -16,3 +16,8 @@ Url routing
 Models
 BE MINDFUL of scope - for instance, if you are considering reusing features of the ABET PARS system, please be mindful of the scope of feature(s) you implement - you are NOT WRITING THE ABET PARS system in full (that's far too large of a scope)
 
+
+python manage.py test functional_tests
+
+
+python manage.py test
