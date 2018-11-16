@@ -17,16 +17,19 @@ class Item(models.Model):
     zipcode = models.TextField()
     mission = models.TextField()
     list = models.ForeignKey(Institutions, default=None)
-    
-    
+        
 #programEducationalObjectives
-class programEducationalObjectives(models.Model):
+class ProgramEducationalObjectives(models.Model):
     institution = models.ForeignKey(Item, default=None)
-    #institution = models.TextField()
     objective = models.TextField()
+    
+    def __str__(self):
+        return self.objective
 
 #Student outcomes
-class studentOutcome(models.Model):
+class StudentOutcome(models.Model):
     institution = models.ForeignKey(Item, default=None)
-    #institution = models.TextField()
     studentOutcome = models.TextField()
+
+
+    

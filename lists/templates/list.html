@@ -5,6 +5,7 @@
 {% block form_action %}/lists/{{ list.id }}/add_item{% endblock %}
 
 {% block table %}
+{{list}}
 {{list.item_set.count}}
   <table id="id_list_table" class="table table-bordered table-dark">
     <thead class="thead-dark"><tr><td>counter</td><td>email</td><td>password</td><td>confirm_password</td><td>name</td><td>street</td><td>city</td><td>state</td><td>zipcode</td><td>mission</td><td>Add Program Educational Objectives</td><td>Add Student Outcomes</td></tr></thead>
