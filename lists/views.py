@@ -56,7 +56,18 @@ def add_peos(request,lists_id):
         list_ = Item.objects.get(id=lists_id)
         #print('I can see this message in my terminal output!',list_)
         return render(request, 'list_peos.html', {'list': list_})
-    
+# --------------------------Student outcomes -----------------------------------------
+def add_so(request,lists_id):
+    add_text= request.POST.get('text_studentOutcome',False)
+    if(add_text == False):
+        list_ = Item.objects.get(id=lists_id)
+        return render(request, 'list_so.html', {'list': list_})
+    else:
+        StudentOutcome.objects.create(institution=Item.objects.get(id=lists_id), studentOutcome=add_text)
+        list_ = Item.objects.get(id=lists_id)
+        return render(request, 'list_so.html', {'list': list_})
+
+#------------------------------------------------------------------------------
 def new_peos(request,lists_id):
     item = Item.objects.get(id=lists_id)
     ProgramEducationalObjectives.objects.create(institution=item,
@@ -69,21 +80,16 @@ def view_peos(request,lists_id):
     list_ = ProgramEducationalObjectives.objects.filter(institution=item).values()
     return render(request, 'list_peos.html', {'list': list_})
 
-# --------------------------Student outcomes -----------------------------------------
-def add_so(request,lists_id):
-    item_ = Item.objects.get(id=lists_id)
-    StudentOutcome.objects.create(institution=item_, studentOutcome='studentOutcome test')
-    list_ = StudentOutcome.objects.filter(institution=item_)
-    
-    return render(request, 'list_so.html', {'list': list_})
+#-------------------------------------------------------------------------------
 
-def new_so(request):
-    item = Item.objects.get(id=1)
+def new_so(request,lists_id):
+    item = Item.objects.get(id=lists_id)
     StudentOutcome.objects.create(institution=item,
-                                   studentOutcome=request.POST['studentOutcome'])
-    return render(request, 'list_so.html')                                            
+                                   studentOutcome=request.POST['text_studentOutcome'])
+    #return render(request, 'list_so.html')                                            
+    return redirect(f'/lists/1/inst/newSo/{lists_id}/') 
 
-def view_so(request):
-    item = Item.objects.get(id=1)
-    list_ = StudentOutcome.objects.get(institution=item)
+def view_so(request,lists_id):
+    item = Item.objects.get(id=lists_id)
+    list_ = StudentOutcome.objects.filter(institution=item).values
     return render(request, 'list_so.html', {'list': list_})

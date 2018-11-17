@@ -30,9 +30,6 @@
       </div>
     </div>
 {% block table %}
-
-{{list}}
-{{list.programeducationalobjectives_set.count}}
     <table id="id_peos_table" class="table table-bordered table-dark">
         <tr><td>counter</td><td>studentOutcome</td></tr>
       {% for list in list.programeducationalobjectives_set.all %}
@@ -47,3 +44,4 @@
 </div>
 </body>
 </html>
+

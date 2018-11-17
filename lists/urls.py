@@ -30,5 +30,5 @@ urlpatterns = [
     #Add Student Outcomes.
     
     url(r'^1/inst/newSo/(\d+)', views.add_so, name='add_so'),
-    url(r'^1/inst/newSo/(\d+)/newso$', views.new_so, name='new_so'),
+    url(r'^1/inst/newSo/(\d+)/newSo$', views.add_so, name='new_so'),
 ]
