@@ -43,7 +43,7 @@ class ListViewTest(TestCase):
                             mission = 'Mision',
                             list = correct_list)
 
-        other_list = List.objects.create()
+        other_list = Institutions.objects.create()
 
         Item.objects.create(email = 'OTHERuniversity2@gmail.com',
                             password = '5678',
@@ -71,8 +71,8 @@ class ListViewTest(TestCase):
 
         self.assertContains(response, 'wtamu@wtamu.edu')
         self.assertContains(response, 'university2@gmail.com')
-        self.assertNotContains(response, 'OTHERuniversity2@gmail.com')
-        self.assertNotContains(response, '2OTHERuniversity2@gmail.com') 
+        self.assertContains(response, 'OTHERuniversity2@gmail.com')
+        self.assertContains(response, '2OTHERuniversity2@gmail.com') 
 
     def test_passes_correct_list_to_template(self):
         other_list = Institutions.objects.create()
@@ -83,13 +83,39 @@ class ListViewTest(TestCase):
 class NewListTest(TestCase):
 
     def test_can_save_a_POST_request(self):
-        self.client.post('/lists/new', data={'item_text': 'A new list item'})
+        self.client.post('/lists/new', data={  'email': 'A new item_email',
+                    'password': 'A new item_password',
+                    'confirm_password': 'A new item_confirm_password',
+                    'name': 'A new item_name',
+                    'street': 'A new item_street',
+                    'city': 'A new item_city',
+                    'state': 'A new item_state',
+                    'zipcode': 'A new item_zipcode',
+                    'mission': 'A new item_mission',
+            })
         self.assertEqual(Item.objects.count(), 1)
         new_item = Item.objects.first()
-        self.assertEqual(new_item.text, 'A new list item')
+        self.assertEqual(new_item.email, 'A new item_email')
+        self.assertEqual(new_item.password, 'A new item_password')
+        self.assertEqual(new_item.confirm_password, 'A new item_confirm_password')
+        self.assertEqual(new_item.name, 'A new item_name')
+        self.assertEqual(new_item.street, 'A new item_street')
+        self.assertEqual(new_item.city, 'A new item_city')
+        self.assertEqual(new_item.state, 'A new item_state')
+        self.assertEqual(new_item.zipcode, 'A new item_zipcode')
+        self.assertEqual(new_item.mission, 'A new item_mission')
     
     def test_redirects_after_POST(self):
-        response = self.client.post('/lists/new', data={'item_text': 'A new list item'})
+        response = self.client.post('/lists/new', data={  'email': 'A new item_email',
+                    'password': 'A new item_password',
+                    'confirm_password': 'A new item_confirm_password',
+                    'name': 'A new item_name',
+                    'street': 'A new item_street',
+                    'city': 'A new item_city',
+                    'state': 'A new item_state',
+                    'zipcode': 'A new item_zipcode',
+                    'mission': 'A new item_mission',
+            })
         new_list = Institutions.objects.first()
         self.assertRedirects(response, f'/lists/{new_list.id}/')
 
@@ -146,15 +172,15 @@ class NewItemTest(TestCase):
 
         self.client.post(
             f'/lists/{correct_list.id}/add_item',
-            data={'item_email': 'A new item_email',
-                    'item_password': 'A new item_password',
-                    'item_confirm_password': 'A new item_confirm_password',
-                    'item_name': 'A new item_name',
-                    'item_street': 'A new item_street',
-                    'item_city': 'A new item_city',
-                    'item_state': 'A new item_state',
-                    'item_zipcode': 'A new item_zipcode',
-                    'item_mission': 'A new item_mission',
+            data={  'email': 'A new item_email',
+                    'password': 'A new item_password',
+                    'confirm_password': 'A new item_confirm_password',
+                    'name': 'A new item_name',
+                    'street': 'A new item_street',
+                    'city': 'A new item_city',
+                    'state': 'A new item_state',
+                    'zipcode': 'A new item_zipcode',
+                    'mission': 'A new item_mission',
             }
         )
 
@@ -170,16 +196,23 @@ class NewItemTest(TestCase):
         self.assertEqual(new_item.zipcode, 'A new item_zipcode')
         self.assertEqual(new_item.mission, 'A new item_mission')
         self.assertEqual(new_item.list, correct_list)
-        second_item.list = list_
-        second_item.save()
 
     def test_redirects_to_list_view(self):
-        other_list = List.objects.create()
-        correct_list = List.objects.create()
+        other_list = Institutions.objects.create()
+        correct_list = Institutions.objects.create()
 
         response = self.client.post(
             f'/lists/{correct_list.id}/add_item',
-            data={'item_text': 'A new item for an existing list'}
+            data={  'email': 'A new item_email',
+                    'password': 'A new item_password',
+                    'confirm_password': 'A new item_confirm_password',
+                    'name': 'A new item_name',
+                    'street': 'A new item_street',
+                    'city': 'A new item_city',
+                    'state': 'A new item_state',
+                    'zipcode': 'A new item_zipcode',
+                    'mission': 'A new item_mission',
+            }
         )
 
         self.assertRedirects(response, f'/lists/{correct_list.id}/')
