@@ -125,43 +125,45 @@ class ListAndItemModelsTest(TestCase):
         list_ = Institutions()
         list_.save()
 
-        first_item = Institutions()
-        first_item.email = '2OTHERuniversity2@gmail.com',
-        first_item.password = '5678',
-        first_item.confirm_password = '5678',
-        first_item.name = '2 OTHER University 2',
-        first_item.street = 'cll 160 c n 16 c 35' ,
-        first_item.city = 'Bogota',
-        first_item.state = 'Cundinamarca',
-        first_item.zipcode = '110111',
-        first_item.mission = 'Mision',
+        first_item = Item()
+        first_item.email = '2OTHERuniversity2@gmail.com'
+        first_item.password = '5678'
+        first_item.confirm_password = '5678'
+        first_item.name = '2 OTHER University 2'
+        first_item.street = 'cll 160 c n 16 c 35' 
+        first_item.city = 'Bogota'
+        first_item.state = 'Cundinamarca'
+        first_item.zipcode = '110111'
+        first_item.mission = 'Mision'
         first_item.list = list_
         first_item.save()
 
-        second_item = Institutions()
-        second_item.email = 'university2@gmail.com',
-        second_item.password = '5678',
-        second_item.confirm_password = '5678',
-        second_item.name = 'University 2',
-        second_item.street = 'cll 160 c n 16 c 35' ,
-        second_item.city = 'Bogota',
-        second_item.state = 'Cundinamarca',
-        second_item.zipcode = '110111',
-        second_item.mission = 'Mision',
+        second_item = Item()
+        second_item.email = 'university2@gmail.com'
+        second_item.password = '5678'
+        second_item.confirm_password = '5678'
+        second_item.name = 'University 2'
+        second_item.street = 'cll 160 c n 16 c 35' 
+        second_item.city = 'Bogota'
+        second_item.state = 'Cundinamarca'
+        second_item.zipcode = '110111'
+        second_item.mission = 'Mision'
         second_item.list = list_
         second_item.save()
 
         saved_list = Institutions.objects.first()
         self.assertEqual(saved_list, list_)
 
-        saved_items = Institutions.objects.all()
+        saved_items = Item.objects.all()
         self.assertEqual(saved_items.count(), 2)
 
         first_saved_item = saved_items[0]
         second_saved_item = saved_items[1]
-        self.assertEqual(first_saved_item.email, '2OTHERuniversity2@gmail.com')
+        self.assertEqual(first_saved_item.email , '2OTHERuniversity2@gmail.com')
+        self.assertEqual(first_saved_item.password, '5678')
         self.assertEqual(first_saved_item.list, list_)
         self.assertEqual(second_saved_item.email, 'university2@gmail.com')
+        self.assertEqual(first_saved_item.password, '5678')
         self.assertEqual(second_saved_item.list, list_)
 
 class NewItemTest(TestCase):
