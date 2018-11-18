@@ -22,9 +22,9 @@ def new_Inst(request):
                         state=request.POST['state'],
                         zipcode=request.POST['zipcode'],
                         mission=request.POST['mission'],
-                        list=Institutions.objects.get(id=1))
-    #return redirect(f'/lists/{list_.id}/')
-    return redirect(f'/lists/1/')
+                        list=Institutions.objects.get(id=list_.id))
+    return redirect(f'/lists/{list_.id}/')
+    #return redirect(f'/lists/1/')
 
 def add_inst(request, list_id):
     list_ = Institutions.objects.get(id=list_id)
