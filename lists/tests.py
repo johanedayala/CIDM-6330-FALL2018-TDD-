@@ -2,7 +2,7 @@ from django.urls import resolve
 from django.test import TestCase
 from lists.views import home_page
 from django.http import HttpRequest
-from lists.models import Item, Institutions
+from lists.models import Item, Institutions,ProgramEducationalObjectives, StudentOutcome
 from django.template.loader import render_to_string
 
 class HomePageTest(TestCase):
@@ -218,3 +218,91 @@ class NewItemTest(TestCase):
         )
 
         self.assertRedirects(response, f'/lists/{correct_list.id}/')
+
+class PeosViewTest(TestCase):
+
+    def test_uses_list_template_peos(self):
+        inst_ = Institutions.objects.create()
+        response = self.client.get(f'/lists/1/')
+        self.assertTemplateUsed(response, 'list.html')
+        Item.objects.create(email = 'wtamu@wtamu.edu',
+                            password = '1234',
+                            confirm_password = '1234',
+                            name = 'West Texas A&M University',
+                            street = '2602 4 ave' ,
+                            city = 'Canyon',
+                            state = 'Texas',
+                            zipcode = '79015',
+                            mission = 'Mission',
+                            list = inst_)
+        item_ = Item.objects.first()
+        response = self.client.get(f'/lists/1/inst/{item_.id}')
+        response = self.client.get(f'/lists/1/inst/NewSo/{item_.id}')
+
+    def test_displays_only_items_for_that_list_Peos(self):
+        correct_list = Institutions.objects.create()
+        Item.objects.create(email = 'wtamu@wtamu.edu',
+                            password = '1234',
+                            confirm_password = '1234',
+                            name = 'West Texas A&M University',
+                            street = '2602 4 ave' ,
+                            city = 'Canyon',
+                            state = 'Texas',
+                            zipcode = '79015',
+                            mission = 'Mission',
+                            list = correct_list)
+        #Item.objects.create(text='itemey 2', list=correct_list)
+        Item.objects.create(email = 'university2@gmail.com',
+                            password = '5678',
+                            confirm_password = '5678',
+                            name = 'University 2',
+                            street = 'cll 160 c n 16 c 35' ,
+                            city = 'Bogota',
+                            state = 'Cundinamarca',
+                            zipcode = '110111',
+                            mission = 'Mision',
+                            list = correct_list)
+
+        other_list = Institutions.objects.create()
+
+        Item.objects.create(email = 'OTHERuniversity2@gmail.com',
+                            password = '5678',
+                            confirm_password = '5678',
+                            name = 'OTHER University 2',
+                            street = 'cll 160 c n 16 c 35' ,
+                            city = 'Bogota',
+                            state = 'Cundinamarca',
+                            zipcode = '110111',
+                            mission = 'Mision',
+                            list = Institutions.objects.get(id=1))
+
+        Item.objects.create(email = '2OTHERuniversity2@gmail.com',
+                            password = '5678',
+                            confirm_password = '5678',
+                            name = '2 OTHER University 2',
+                            street = 'cll 160 c n 16 c 35' ,
+                            city = 'Bogota',
+                            state = 'Cundinamarca',
+                            zipcode = '110111',
+                            mission = 'Mision',
+                            list = Institutions.objects.get(id=1))
+
+        response = self.client.get(f'/lists/1/')
+        
+
+        self.assertContains(response, 'wtamu@wtamu.edu')
+        self.assertContains(response, 'university2@gmail.com')
+        self.assertContains(response, 'OTHERuniversity2@gmail.com')
+        self.assertContains(response, '2OTHERuniversity2@gmail.com') 
+
+        item_ = Item.objects.first()
+        ProgramEducationalObjectives.objects.create(institution= item_ , objective = 'Example of objective')
+        ProgramEducationalObjectives.objects.create(institution= item_ , objective = 'Example of objective 2 ')
+        response = self.client.get(f'/lists/1/inst/{item_.id}')
+        self.assertContains(response, 'Example of objective')
+        self.assertContains(response, 'Example of objective 2 ')
+        StudentOutcome.objects.create(institution= item_ , studentOutcome = 'Example of studentOutcome')
+        StudentOutcome.objects.create(institution= item_ , studentOutcome = 'Example of studentOutcome 2 ')
+        response = self.client.get(f'/lists/1/inst/newSo/{item_.id}')
+        self.assertContains(response, 'Example of studentOutcome')
+        self.assertContains(response, 'Example of studentOutcome 2 ')
