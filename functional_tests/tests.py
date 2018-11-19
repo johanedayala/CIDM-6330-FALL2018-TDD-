@@ -212,9 +212,27 @@ class NewVisitorTest(StaticLiveServerTestCase):
         )
         # She starts a new list and sees the input is nicely
         # centered there too
-        inputbox.send_keys('testing')
+        inputbox = self.browser.find_element_by_id('id_email')
+        inputbox.send_keys('johanAyala@gmail.com')
+        inputbox = self.browser.find_element_by_id('id_password')
+        inputbox.send_keys('12345') 
+        inputbox = self.browser.find_element_by_id('id_confirm_password')
+        inputbox.send_keys('12345') 
+        inputbox = self.browser.find_element_by_id('id_name')
+        inputbox.send_keys('Johan Ayala') 
+        inputbox = self.browser.find_element_by_id('id_street')
+        inputbox.send_keys('2602 6 TH AVE') 
+        inputbox = self.browser.find_element_by_id('id_city')
+        inputbox.send_keys('CANYON') 
+        inputbox = self.browser.find_element_by_id('id_state')
+        inputbox.send_keys('TEXAS') 
+        inputbox = self.browser.find_element_by_id('id_zipcode')
+        inputbox.send_keys('79015') 
+        inputbox = self.browser.find_element_by_id('id_mission')
+        inputbox.send_keys('MISSION') 
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1: testing')
+        self.wait_for_row_in_list_table('1: johanAyala@gmail.com 12345 12345 Johan Ayala 2602 6 TH AVE CANYON TEXAS 79015 MISSION')
+
         inputbox = self.browser.find_element_by_id('id_email')
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,

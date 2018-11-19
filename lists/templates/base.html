@@ -21,31 +21,31 @@
         <h2>{% block header_text %}{% endblock %}</h2>
           <form method="POST" action="{% block form_action %}{% endblock %}">
           {% csrf_token %}
-              <input name="email" id="id_email"
+              <input name="email" id="id_email" type="email" required="required"
                 class="form-control input-lg"
                 placeholder="Enter email" />
-              <input name="password" id="id_password" type="password"
+              <input name="password" id="id_password" type="password"required="required"
                 class="form-control input-lg"
                 placeholder="Enter password" />
-              <input name="confirm_password" id="id_confirm_password" type="password"
+              <input name="confirm_password" id="id_confirm_password" type="password"required="required"
                 class="form-control input-lg"
                 placeholder="confirm_password" />
-              <input name="name" id="id_name"
+              <input name="name" id="id_name" required="required"
                 class="form-control input-lg"
                 placeholder="Enter name" />
-              <input name="street" id="id_street"
+              <input name="street" id="id_street" required="required"
                 class="form-control input-lg"
                 placeholder="Enter street" />
-              <input name="city" id="id_city"
+              <input name="city" id="id_city" required="required"
                 class="form-control input-lg"
                 placeholder="Enter city" />
-              <input name="state" id="id_state"
+              <input name="state" id="id_state" required="required"
                 class="form-control input-lg"
                 placeholder="Enter state" />
-              <input name="zipcode" id="id_zipcode"
+              <input name="zipcode" id="id_zipcode" required="required"
                 class="form-control input-lg"
-                placeholder="Enter zipcode" />
-              <input name="mission" id="id_mission"
+                placeholder="Enter zipcode" type="number" min="1" max="99999"/>
+              <input name="mission" id="id_mission" required="required"
                 class="form-control input-lg"
                 placeholder="Enter mission" />
               <input type="submit" value="submit"/>
