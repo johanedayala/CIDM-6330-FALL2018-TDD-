@@ -49,7 +49,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.browser.get(self.live_server_url)
 
         self.assertIn('New INSTITUTION', self.browser.title)
-        header_text = self.browser.find_element_by_tag_name('h1').text  
+        header_text = self.browser.find_element_by_tag_name('h2').text  
         self.assertIn('New INSTITUTION', header_text)
 
 

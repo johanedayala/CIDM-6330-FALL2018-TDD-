@@ -31,7 +31,7 @@ class ListViewTest(TestCase):
                             zipcode = '79015',
                             mission = 'Mission',
                             list = correct_list)
-        #Item.objects.create(text='itemey 2', list=correct_list)
+
         Item.objects.create(email = 'university2@gmail.com',
                             password = '5678',
                             confirm_password = '5678',
@@ -79,7 +79,7 @@ class ListViewTest(TestCase):
         correct_list = Institutions.objects.create()
         response = self.client.get(f'/lists/{correct_list.id}/')
         self.assertEqual(response.context['list'], correct_list)  
-
+#working
 class NewListTest(TestCase):
 
     def test_can_save_a_POST_request(self):
@@ -104,6 +104,12 @@ class NewListTest(TestCase):
         self.assertEqual(new_item.state, 'A new item_state')
         self.assertEqual(new_item.zipcode, 'A new item_zipcode')
         self.assertEqual(new_item.mission, 'A new item_mission')
+
+        self.client.post('/lists/1/inst/{new_item.id}', data={  'objective': 'A new objective'})
+        self.assertEqual(new_item.email, 'A new item_email')
+        self.client.post('/lists/1/inst/newSo/{new_item.id}', data={  'studentOutcome': 'A new studentOutcome'})
+        
+        self.assertEqual(new_item.email, 'A new item_email')
     
     def test_redirects_after_POST(self):
         response = self.client.post('/lists/new', data={  'email': 'A new item_email',
@@ -119,6 +125,11 @@ class NewListTest(TestCase):
         new_list = Institutions.objects.first()
         self.assertRedirects(response, f'/lists/{new_list.id}/')
 
+        response = self.client.post('/lists/1/inst/{new_list.id}', data={  'objective': 'A new objective'})
+        response = self.client.post('/lists/1/inst/newSo/{new_list.id}', data={  'studentOutcome': 'A new studentOutcome'})
+
+
+#Ready
 class ListAndItemModelsTest(TestCase):
 
     def test_saving_and_retrieving_items(self):
@@ -138,6 +149,16 @@ class ListAndItemModelsTest(TestCase):
         first_item.list = list_
         first_item.save()
 
+        first_peos = ProgramEducationalObjectives()
+        first_peos.institution = first_item
+        first_peos.objective = 'First Objective'
+        first_peos.save()
+
+        first_so = StudentOutcome()
+        first_so.institution = first_item
+        first_so.studentOutcome = 'First So'
+        first_so.save()
+        
         second_item = Item()
         second_item.email = 'university2@gmail.com'
         second_item.password = '5678'
@@ -151,21 +172,62 @@ class ListAndItemModelsTest(TestCase):
         second_item.list = list_
         second_item.save()
 
+        second_peos = ProgramEducationalObjectives()
+        second_peos.institution = second_item
+        second_peos.objective = 'Second Objective'
+        second_peos.save()
+
+        second_so = StudentOutcome()
+        second_so.institution = second_item
+        second_so.studentOutcome = 'Second So'
+        second_so.save()
+
+
         saved_list = Institutions.objects.first()
         self.assertEqual(saved_list, list_)
 
         saved_items = Item.objects.all()
         self.assertEqual(saved_items.count(), 2)
 
+        saved_peos = ProgramEducationalObjectives.objects.first()
+        self.assertEqual(saved_peos,first_peos)
+
+        saved_peoss = ProgramEducationalObjectives.objects.all()
+        self.assertEqual(saved_peoss.count(), 2)
+
+        saved_so = StudentOutcome.objects.first()
+        self.assertEqual(saved_so,first_so)
+
+        saved_soo = StudentOutcome.objects.all()
+        self.assertEqual(saved_soo.count(), 2)
+
         first_saved_item = saved_items[0]
         second_saved_item = saved_items[1]
+
+        first_saved_peo = saved_peoss[0]
+        second_saved_peo = saved_peoss[1]
+
+        first_saved_so = saved_soo[0]
+        second_saved_so = saved_soo[1]
+
         self.assertEqual(first_saved_item.email , '2OTHERuniversity2@gmail.com')
         self.assertEqual(first_saved_item.password, '5678')
         self.assertEqual(first_saved_item.list, list_)
         self.assertEqual(second_saved_item.email, 'university2@gmail.com')
         self.assertEqual(first_saved_item.password, '5678')
         self.assertEqual(second_saved_item.list, list_)
+#PEOs
+        self.assertEqual(first_saved_peo.objective, 'First Objective')
+        self.assertEqual(first_saved_peo.institution, first_item)
+        self.assertEqual(second_saved_peo.objective, 'Second Objective')
+        self.assertEqual(second_saved_peo.institution, second_item)
+#SO
+        self.assertEqual(first_saved_so.studentOutcome, 'First So')
+        self.assertEqual(first_saved_so.institution, first_item)
+        self.assertEqual(second_saved_so.studentOutcome, 'Second So')
+        self.assertEqual(second_saved_so.institution, second_item)
 
+#Ready
 class NewItemTest(TestCase):
 
     def test_can_save_a_POST_request_to_an_existing_list(self):
@@ -218,7 +280,7 @@ class NewItemTest(TestCase):
         )
 
         self.assertRedirects(response, f'/lists/{correct_list.id}/')
-
+#Ready
 class PeosViewTest(TestCase):
 
     def test_uses_list_template_peos(self):
