@@ -26,7 +26,7 @@ urlpatterns = [
 
     #add Personal Education Objectives
     url(r'^1/inst/(\d+)', views.add_peos, name='add_peos'),
-    url(r'^1/inst/(\d+)/newPeos/$', views.new_peos, name='new_peos'),
+    url(r'^1/inst/(\d+)/newPeos/$', views.add_peos, name='new_peos'),
     #Add Student Outcomes.
     
     url(r'^1/inst/newSo/(\d+)', views.add_so, name='add_so'),

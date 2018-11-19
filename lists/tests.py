@@ -10,7 +10,7 @@ class HomePageTest(TestCase):
     def test_uses_home_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
-    
+#Ready
 class ListViewTest(TestCase):
 
     def test_uses_list_template(self):
@@ -79,7 +79,7 @@ class ListViewTest(TestCase):
         correct_list = Institutions.objects.create()
         response = self.client.get(f'/lists/{correct_list.id}/')
         self.assertEqual(response.context['list'], correct_list)  
-#working
+#ready
 class NewListTest(TestCase):
 
     def test_can_save_a_POST_request(self):
@@ -105,11 +105,15 @@ class NewListTest(TestCase):
         self.assertEqual(new_item.zipcode, 'A new item_zipcode')
         self.assertEqual(new_item.mission, 'A new item_mission')
 
-        self.client.post('/lists/1/inst/{new_item.id}', data={  'objective': 'A new objective'})
-        self.assertEqual(new_item.email, 'A new item_email')
-        self.client.post('/lists/1/inst/newSo/{new_item.id}', data={  'studentOutcome': 'A new studentOutcome'})
-        
-        self.assertEqual(new_item.email, 'A new item_email')
+        self.client.post(f'/lists/1/inst/newSo/{new_item.id}', data={'text_studentOutcome': 'A new studentOutcome'})
+        self.assertEqual(StudentOutcome.objects.count(), 1)
+        new_so = StudentOutcome.objects.first()
+        self.assertEqual(new_so.studentOutcome, 'A new studentOutcome')
+
+        self.client.post(f'/lists/1/inst/{new_item.id}', data={'text_objective': 'A new objective'})
+        self.assertEqual(ProgramEducationalObjectives.objects.count(), 1)
+        new_peo = ProgramEducationalObjectives.objects.first()
+        self.assertEqual(new_peo.objective, 'A new objective')
     
     def test_redirects_after_POST(self):
         response = self.client.post('/lists/new', data={  'email': 'A new item_email',
