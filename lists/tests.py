@@ -265,6 +265,16 @@ class NewItemTest(TestCase):
         self.assertEqual(new_item.mission, 'A new item_mission')
         self.assertEqual(new_item.list, correct_list)
 
+        self.client.post(f'/lists/1/inst/newSo/{new_item.id}', data={'text_studentOutcome': 'A new studentOutcome'})
+        self.assertEqual(StudentOutcome.objects.count(), 1)
+        new_so = StudentOutcome.objects.first()
+        self.assertEqual(new_so.studentOutcome, 'A new studentOutcome')
+
+        self.client.post(f'/lists/1/inst/{new_item.id}', data={'text_objective': 'A new objective'})
+        self.assertEqual(ProgramEducationalObjectives.objects.count(), 1)
+        new_peo = ProgramEducationalObjectives.objects.first()
+        self.assertEqual(new_peo.objective, 'A new objective')
+
     def test_redirects_to_list_view(self):
         other_list = Institutions.objects.create()
         correct_list = Institutions.objects.create()
@@ -284,6 +294,11 @@ class NewItemTest(TestCase):
         )
 
         self.assertRedirects(response, f'/lists/{correct_list.id}/')
+
+        
+        institution_list = Item.objects.first()
+        response1 =self.client.post(f'/lists/1/inst/newSo/{institution_list.id}', data={'text_studentOutcome': 'A new studentOutcome'})
+        response2 =self.client.post(f'/lists/1/inst/{institution_list.id}', data={'text_objective': 'A new objective'})
 #Ready
 class PeosViewTest(TestCase):
 
